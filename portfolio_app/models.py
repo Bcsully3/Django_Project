@@ -5,7 +5,21 @@ from django.urls import reverse
 
 # Create your models here.
 
+class Portfolio(models.Model):
+    title = models.CharField(default="New Portfolio", max_length = 200)
+    is_active = models.BooleanField(default = False)
+    description = models.TextField(blank = True)
+    contact_email = models.CharField(max_length = 200, blank = True)
 
+class Project(models.Model):
+    title = models.CharField(max_length=200)
+    description = models.TextField(blank=True)
+
+class ProjectInPortfolio(models.Model):
+    portfolio = models.ForeignKey(Portfolio, on_delete=models.CASCADE)
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+
+    
 class Student(models.Model):
 
     #List of choices for major value in database, human readable name
@@ -32,4 +46,5 @@ class Student(models.Model):
     def get_absolute_url(self):
         return reverse('student-detail', args=[str(self.id)])
 
+    portfolio=models.OneToOneField(Portfolio, null=True, on_delete=models.CASCADE, unique=True)
 
