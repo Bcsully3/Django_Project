@@ -1,0 +1,15 @@
+{% extends 'portfolio_app/base_template.html' %}
+
+{% block content %}
+
+<form action="" method="POST">
+    {% csrf_token %}
+    <table>
+        {{ form.as_table }}
+    </table>
+    <input type="submit" name="Submit" class="btn btn-primary" value="Update Project">
+    <a class="btn btn-primary" href="{% url 'portfolio-detail' project.portfolio.pk %}" role="button">Back to
+        Portfolio</a>
+</form>
+
+{% endblock %}

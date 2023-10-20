@@ -14,6 +14,9 @@ class Portfolio(models.Model):
     def __str__(self):
         return self.title
     
+    def get_absolute_url(self):
+        return reverse("portfolio-detail", args=[str(self.id)])
+    
 class Project(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField(blank=True)
@@ -22,6 +25,9 @@ class Project(models.Model):
     def __str__(self):
         return self.title
     
+    def get_absolute_url(self):
+        return reverse("project-detail", args=[str(self.id)])
+"""    
 # Model to represent the relationship between projects and portfolios.
 # Each instance of this model will have a reference to a Portfolio and a Project,
 # creating a many-to-many relationship between portfolios and projects. T
@@ -33,10 +39,10 @@ class ProjectsInPortfolio(models.Model):
     #Just the entry will be removed from this table
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
 
-class Meta:
-#ensures that each project is associated with only one portfolio
-    unique_together = ('portfolio', 'project')
-
+    class Meta:
+        #ensures that each project is associated with only one portfolio
+        unique_together = ('portfolio', 'project')
+"""
 
 
 class Student(models.Model):
@@ -65,5 +71,5 @@ class Student(models.Model):
     def get_absolute_url(self):
         return reverse('student-detail', args=[str(self.id)])
 
-    portfolio=models.OneToOneField(Portfolio, default=None, on_delete=models.CASCADE, unique=True)
+    portfolio=models.OneToOneField(Portfolio, on_delete=models.CASCADE, unique=True)
 

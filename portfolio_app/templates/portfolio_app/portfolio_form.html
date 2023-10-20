@@ -1,0 +1,14 @@
+{% extends 'portfolio_app/base_template.html' %}
+
+{% block content %}
+
+<h2>Update Portfolio for {{ student.name }}</h2>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Update Portfolio</button>
+</form>
+
+<a href="{% url 'student-detail' student.id %}">Back to Student Detail</a>
+{% endblock %}
